@@ -1,0 +1,92 @@
+%% -*- ess-noweb-code-mode: go-mode; -*-
+\documentclass[nobib]{tufte-handout}
+
+
+\input{../../preamble.tex}
+
+
+%% \usepackage[xindy,nopostdot]{glossaries}
+%% \makeglossaries
+%% \input{glossary}
+%% \renewcommand*{\glstextformat}[1]{\textsl{#1}}
+
+
+\hypersetup{
+  pdffitwindow=true,
+  pdfstartview={FitH},
+  pdftitle={Hello, World!},
+  pdfauthor={Eric Bailey <eric@ericb.me>},
+  %% pdfsubject={},
+  pdfkeywords={Go, web, programming},
+  colorlinks=true,
+  linkcolor=ErlangRed,
+  urlcolor=ErlangRed
+}
+
+
+\title{Hello, World!}
+
+
+\date{%
+  June 22, 2019
+  \thanks{Last updated \today}
+}
+
+
+\begin{document}
+
+
+\maketitle
+@
+
+<<main.go>>=
+package main
+@
+
+
+<<main.go>>=
+import (
+	"fmt"
+	"net/http"
+)
+@
+
+
+<<main.go>>=
+func handler(write http.ResponseWriter, request *http.Request) {
+	fmt.Fprintf(write, "Hello World, %s!", request.URL.Path[1:])
+}
+@ %def handler
+
+
+<<main.go>>=
+func main() {
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":8080", nil)
+}
+@ %def main
+
+
+%% \newpage
+%% \section{Full Listing}
+%% \inputgo{main.go}
+
+
+%% \newpage
+\section{Chunks}
+\nowebchunks
+
+
+\section{Index}
+\nowebindex
+
+
+%% \bibliography{main}
+%% \bibliographystyle{plainnat}
+
+
+%% \newpage
+%% \listoftodos[To-Do]
+
+
+\end{document}
